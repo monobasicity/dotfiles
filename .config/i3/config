@@ -199,14 +199,30 @@ bindsym $mod+r mode "resize"
 ### i3-layouts
 set $i3l spiral 0.55 to workspace $ws1
 set $i3l spiral 0.55 to workspace $ws2
+set $i3l spiral 0.55 to workspace $ws3
+set $i3l spiral 0.55 to workspace $ws4
+set $i3l spiral 0.55 to workspace $ws5
+set $i3l spiral 0.55 to workspace $ws6
+set $i3l spiral 0.55 to workspace $ws7
+set $i3l spiral 0.55 to workspace $ws8
+set $i3l spiral 0.55 to workspace $ws9
+set $i3l spiral 0.55 to workspace $ws10
+
+### Assignments
+### automatically assign a client window to a specific workspace (or make any other assignments:
+### https://i3wm.org/docs/userguide.html#assign_workspace
+### get the window's class by using xprop: WM_CLASS=(INSTANCE, CLASS)
+
+### assign Discord to workspace 5:
+assign [class="^discord$"] 5
 
 ### Autostart
         exec --no-startup-id volumeicon
-        exec --no-startup-id picom -b --experimental-backends
+        exec_always --no-startup-id picom -b --experimental-backends
         exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallhaven-k9o881.jpg
-        # exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/wallhaven-137ozw.png
         exec --no-startup-id /usr/bin/i3-layouts
 	exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+	exec --no-startup-id i3-msg 'workspace 1; exec firefox'
 
 set $Locker i3lock && sleep 1
 
@@ -250,3 +266,8 @@ gaps outer -5
 bindsym $mod+Next move scratchpad
 bindsym $mod+Prior scratchpad show
 #bindsym mod4+s [title="^Sup ::"] scratchpad show
+
+### Shortcuts for screenshots
+bindsym $mod$+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Shift+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
